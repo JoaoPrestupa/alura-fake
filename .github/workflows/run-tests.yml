@@ -10,6 +10,20 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: alurafake_test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -19,6 +33,22 @@ jobs:
         with:
           java-version: '21'
           distribution: 'temurin'
+          cache: maven
+
+      - name: Aguardar MySQL iniciar
+        run: |
+          for i in {1..30}; do
+            if mysqladmin ping -h"127.0.0.1" -P3306 -uroot -proot --silent; then
+              echo "MySQL está pronto!"
+              break
+            fi
+            echo "Aguardando MySQL... ($i/30)"
+            sleep 2
+          done
 
       - name: Instalar dependências e rodar testes
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/alurafake_test?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: root
         run: mvn test -B
