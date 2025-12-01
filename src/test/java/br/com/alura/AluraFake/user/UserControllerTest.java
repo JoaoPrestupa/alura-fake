@@ -1,11 +1,16 @@
 package br.com.alura.AluraFake.user;
 
+import br.com.alura.AluraFake.course.CourseService;
+import br.com.alura.AluraFake.security.SecurityFilter;
+import br.com.alura.AluraFake.security.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
@@ -15,6 +20,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(UserController.class)
+@AutoConfigureMockMvc(addFilters = false)
+@ActiveProfiles("test")
 class UserControllerTest {
 
     @Autowired
@@ -23,6 +30,15 @@ class UserControllerTest {
     @MockBean
     private UserRepository userRepository;
 
+    @MockBean
+    private CourseService courseService;
+
+    @MockBean
+    private TokenService tokenService;
+
+    @MockBean
+    private SecurityFilter securityFilter;
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -30,7 +46,7 @@ class UserControllerTest {
     void newUser__should_return_bad_request_when_email_is_blank() throws Exception {
         NewUserDTO newUserDTO = new NewUserDTO();
         newUserDTO.setEmail("");
-        newUserDTO.setName("Caio Bugorin");
+        newUserDTO.setName("Francesco Virgulini");
         newUserDTO.setRole(Role.STUDENT);
 
         mockMvc.perform(post("/user/new")
@@ -44,8 +60,8 @@ class UserControllerTest {
     @Test
     void newUser__should_return_bad_request_when_email_is_invalid() throws Exception {
         NewUserDTO newUserDTO = new NewUserDTO();
-        newUserDTO.setEmail("caio");
-        newUserDTO.setName("Caio Bugorin");
+        newUserDTO.setEmail("francesco");
+        newUserDTO.setName("Francesco Virgulini");
         newUserDTO.setRole(Role.STUDENT);
 
         mockMvc.perform(post("/user/new")
@@ -59,8 +75,8 @@ class UserControllerTest {
     @Test
     void newUser__should_return_bad_request_when_email_already_exists() throws Exception {
         NewUserDTO newUserDTO = new NewUserDTO();
-        newUserDTO.setEmail("caio.bugorin@alura.com.br");
-        newUserDTO.setName("Caio Bugorin");
+        newUserDTO.setEmail("francesco.bugorin@alura.com.br");
+        newUserDTO.setName("Francesco Virgulini");
         newUserDTO.setRole(Role.STUDENT);
 
         when(userRepository.existsByEmail(newUserDTO.getEmail())).thenReturn(true);
@@ -76,8 +92,8 @@ class UserControllerTest {
     @Test
     void newUser__should_return_created_when_user_request_is_valid() throws Exception {
         NewUserDTO newUserDTO = new NewUserDTO();
-        newUserDTO.setEmail("caio.bugorin@alura.com.br");
-        newUserDTO.setName("Caio Bugorin");
+        newUserDTO.setEmail("francesco.bugorin@alura.com.br");
+        newUserDTO.setName("Francesco Virgulini");
         newUserDTO.setRole(Role.STUDENT);
 
         when(userRepository.existsByEmail(newUserDTO.getEmail())).thenReturn(false);

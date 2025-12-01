@@ -6,6 +6,8 @@ import br.com.alura.AluraFake.task.TaskRepository;
 import br.com.alura.AluraFake.task.Type;
 import br.com.alura.AluraFake.user.User;
 import br.com.alura.AluraFake.user.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,15 +21,15 @@ import java.util.stream.Collectors;
 @Service
 public class CourseService {
 
-    private final CourseRepository courseRepository;
-    private final TaskRepository taskRepository;
-    private final UserRepository userRepository;
-
-    public CourseService(CourseRepository courseRepository, TaskRepository taskRepository, UserRepository userRepository) {
-        this.courseRepository = courseRepository;
-        this.taskRepository = taskRepository;
-        this.userRepository = userRepository;
-    }
+    @Autowired
+    @Lazy
+    private CourseRepository courseRepository;
+    @Autowired
+    @Lazy
+    private TaskRepository taskRepository;
+    @Autowired
+    @Lazy
+    private UserRepository userRepository;
 
     @Transactional
     public void publishCourse(Long courseId) {

@@ -1,10 +1,12 @@
 package br.com.alura.AluraFake.course;
 
+import br.com.alura.AluraFake.security.SecurityFilter;
 import br.com.alura.AluraFake.security.TokenService;
 import br.com.alura.AluraFake.user.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
@@ -18,17 +20,27 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CourseController.class)
+@AutoConfigureMockMvc(addFilters = false)
 @ActiveProfiles("test")
 class CourseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
     @MockBean
     private UserRepository userRepository;
+
     @MockBean
     private CourseRepository courseRepository;
+
+    @MockBean
+    private CourseService courseService;
+
     @MockBean
     private TokenService tokenService;
+
+    @MockBean
+    private SecurityFilter securityFilter;
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -50,7 +62,6 @@ class CourseControllerTest {
                 .andExpect(jsonPath("$.field").value("emailInstructor"))
                 .andExpect(jsonPath("$.message").isNotEmpty());
     }
-
 
     @Test
     void newCourseDTO__should_return_bad_request_when_email_is_no_instructor() throws Exception {

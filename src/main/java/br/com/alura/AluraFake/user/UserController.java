@@ -4,6 +4,7 @@ import br.com.alura.AluraFake.course.CourseService;
 import br.com.alura.AluraFake.course.dto.InstructorCoursesReportDTO;
 import br.com.alura.AluraFake.util.ErrorItemDTO;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,10 @@ import java.util.List;
 @RestController
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final CourseService courseService;
-
-    public UserController(UserRepository userRepository, CourseService courseService) {
-        this.userRepository = userRepository;
-        this.courseService = courseService;
-    }
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private CourseService courseService;
 
     @Transactional
     @PostMapping("/user/new")
