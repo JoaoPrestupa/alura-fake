@@ -27,7 +27,8 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        if (!"dev".equals(activeProfile)) return;
+        // Não executar em ambiente de teste ou quando não for dev
+        if ("test".equals(activeProfile) || !"dev".equals(activeProfile)) return;
 
         if (userRepository.count() == 0) {
             // Senhas criptografadas com BCrypt
