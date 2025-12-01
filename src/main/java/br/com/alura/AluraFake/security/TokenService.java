@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.security;
 
-import br.com.alura.AluraFake.user.User;
+import br.com.alura.AluraFake.infra.entity.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

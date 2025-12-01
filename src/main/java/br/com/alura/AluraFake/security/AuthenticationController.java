@@ -1,10 +1,10 @@
 package br.com.alura.AluraFake.security;
 
-import br.com.alura.AluraFake.security.dto.LoginRequestDTO;
-import br.com.alura.AluraFake.security.dto.LoginResponseDTO;
-import br.com.alura.AluraFake.security.dto.RegisterRequestDTO;
-import br.com.alura.AluraFake.user.User;
-import br.com.alura.AluraFake.user.UserRepository;
+import br.com.alura.AluraFake.infra.security.LoginRequestDTO;
+import br.com.alura.AluraFake.infra.security.LoginResponseDTO;
+import br.com.alura.AluraFake.infra.security.RegisterRequestDTO;
+import br.com.alura.AluraFake.infra.entity.User;
+import br.com.alura.AluraFake.infra.repository.UserRepository;
 import br.com.alura.AluraFake.util.ErrorItemDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

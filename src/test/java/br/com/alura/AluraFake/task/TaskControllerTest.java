@@ -1,13 +1,15 @@
 package br.com.alura.AluraFake.task;
 
-import br.com.alura.AluraFake.course.Course;
-import br.com.alura.AluraFake.course.CourseRepository;
-import br.com.alura.AluraFake.course.Status;
-import br.com.alura.AluraFake.task.dto.request.OptionDTO;
-import br.com.alura.AluraFake.task.dto.request.SingleChoiceTaskRequestDTO;
-import br.com.alura.AluraFake.task.dto.request.TaskRequestDTO;
-import br.com.alura.AluraFake.user.User;
-import br.com.alura.AluraFake.user.UserRepository;
+import br.com.alura.AluraFake.infra.entity.Course;
+import br.com.alura.AluraFake.infra.enumerated.Role;
+import br.com.alura.AluraFake.infra.repository.CourseRepository;
+import br.com.alura.AluraFake.infra.enumerated.Status;
+import br.com.alura.AluraFake.infra.dto.task.OptionDTO;
+import br.com.alura.AluraFake.infra.dto.task.SingleChoiceTaskRequestDTO;
+import br.com.alura.AluraFake.infra.dto.task.TaskRequestDTO;
+import br.com.alura.AluraFake.infra.repository.TaskRepository;
+import br.com.alura.AluraFake.infra.entity.User;
+import br.com.alura.AluraFake.infra.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +59,7 @@ public class TaskControllerTest {
         userRepository.deleteAll();
 
         // Criar usuário instrutor
-        User instructor = new User("Instrutor", "instrutor@test.com", br.com.alura.AluraFake.user.Role.INSTRUCTOR);
+        User instructor = new User("Instrutor", "instrutor@test.com", Role.INSTRUCTOR);
         instructor = userRepository.save(instructor);
 
         // Criar curso em BUILDING

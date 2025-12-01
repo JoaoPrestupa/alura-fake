@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.security;
 
-import br.com.alura.AluraFake.user.UserRepository;
+import br.com.alura.AluraFake.infra.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,6 +1,11 @@
 package br.com.alura.AluraFake.user;
 
-import br.com.alura.AluraFake.course.CourseService;
+import br.com.alura.AluraFake.adapter.UserController;
+import br.com.alura.AluraFake.infra.dto.user.NewUserDTO;
+import br.com.alura.AluraFake.infra.entity.User;
+import br.com.alura.AluraFake.infra.enumerated.Role;
+import br.com.alura.AluraFake.infra.repository.UserRepository;
+import br.com.alura.AluraFake.service.CourseService;
 import br.com.alura.AluraFake.security.SecurityFilter;
 import br.com.alura.AluraFake.security.TokenService;
 import com.fasterxml.jackson.databind.ObjectMapper;

@@ -1,6 +1,6 @@
 package br.com.alura.AluraFake.security;
 
-import br.com.alura.AluraFake.user.UserRepository;
+import br.com.alura.AluraFake.infra.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,11 +1,13 @@
 package br.com.alura.AluraFake.task;
 
-import br.com.alura.AluraFake.course.Course;
-import br.com.alura.AluraFake.course.CourseRepository;
-import br.com.alura.AluraFake.task.dto.request.TaskRequestDTO;
-import br.com.alura.AluraFake.user.Role;
-import br.com.alura.AluraFake.user.User;
-import br.com.alura.AluraFake.user.UserRepository;
+import br.com.alura.AluraFake.infra.entity.Course;
+import br.com.alura.AluraFake.infra.entity.Task;
+import br.com.alura.AluraFake.infra.repository.CourseRepository;
+import br.com.alura.AluraFake.infra.dto.task.TaskRequestDTO;
+import br.com.alura.AluraFake.infra.repository.TaskRepository;
+import br.com.alura.AluraFake.infra.enumerated.Role;
+import br.com.alura.AluraFake.infra.entity.User;
+import br.com.alura.AluraFake.infra.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
