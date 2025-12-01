@@ -47,12 +47,13 @@ jobs:
           done
 
       - name: Executar migrações do Flyway
-        env:
-          SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/alurafake_test?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: root
-          SPRING_PROFILES_ACTIVE: test
-        run: mvn flyway:migrate -Dflyway.configFiles=src/main/resources/application.properties
+        run: |
+          mvn flyway:migrate \
+            -Dflyway.url=jdbc:mysql://localhost:3306/alurafake_test?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true \
+            -Dflyway.user=root \
+            -Dflyway.password=root \
+            -Dflyway.locations=classpath:db/migration \
+            -Dflyway.baselineOnMigrate=true
 
       - name: Instalar dependências e rodar testes
         env:

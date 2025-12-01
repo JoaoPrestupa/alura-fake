@@ -56,6 +56,15 @@ jobs:
         mysql -h127.0.0.1 -P3306 -uroot -proot -e "DROP DATABASE IF EXISTS alurafake_test; CREATE DATABASE alurafake_test;"
         echo "Banco de dados limpo e recriado com sucesso!"
 
+    - name: Executar migrações do Flyway
+      run: |
+        mvn flyway:migrate \
+          -Dflyway.url=jdbc:mysql://localhost:3306/alurafake_test?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true \
+          -Dflyway.user=root \
+          -Dflyway.password=root \
+          -Dflyway.locations=classpath:db/migration \
+          -Dflyway.baselineOnMigrate=true
+
     - name: Executar testes com Maven
       env:
         SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/alurafake_test?useSSL=false&serverTimezone=UTC&createDatabaseIfNotExist=true
