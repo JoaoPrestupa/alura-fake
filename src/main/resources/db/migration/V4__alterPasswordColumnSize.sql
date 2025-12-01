@@ -1,0 +1,2 @@
+ALTER TABLE User MODIFY COLUMN password varchar(100) NOT NULL;
+
